@@ -53,7 +53,7 @@ git clone <your-repo-url>
 cd dev-tools-portal
 
 # 2. Copy and configure environment variables
-copy .env.example .env
+cp .env.example .env
 # Edit .env — at minimum set JWT_SECRET, ADMIN_USERNAME, ADMIN_PASSWORD
 
 # 3. Start all services
@@ -64,6 +64,10 @@ docker compose up --build
 #    Admin login:   http://localhost:3000/admin/login
 #    GraphQL API:   http://localhost:8080/graphql
 ```
+
+## Deploy Online
+
+For a step-by-step production deployment guide (VPS with Docker Compose or Kubernetes), see [`docs/deploy-online.md`](docs/deploy-online.md).
 
 ## Build OCI Images (API + Web)
 
@@ -131,6 +135,12 @@ Set `MONGODB_URI` in a local `.env` file inside `apps/api/` if you're not using 
 
 See [`apps/api/README.md`](apps/api/README.md) for full GraphQL schema details.
 
+## Assignment Requirements Mapping
+
+If you need a direct checklist-style mapping from the assignment requirements to this implementation, see [`docs/requirements-mapping.md`](docs/requirements-mapping.md).
+
+For a public-repository hardening checklist (what to commit vs. never commit), see [`docs/public-repo-checklist.md`](docs/public-repo-checklist.md).
+
 ### Key Endpoints
 
 | Endpoint | Description |
@@ -168,6 +178,9 @@ mutation {
 ## Environment Variables
 
 Copy `.env.example` to `.env` and fill in values.
+
+> **Do not commit your real `.env` file** to version control.
+> Commit only `.env.example` with placeholder/non-secret values.
 
 | Variable | Description | Default |
 |---|---|---|
@@ -245,6 +258,15 @@ spec:
 ```
 
 ---
+
+## Public Repository Guidance
+
+Because this project is intended for a **public GitHub/GitLab repository**:
+
+- Never commit real secrets (`.env`, API keys, production passwords, tokens, kube secrets).
+- Commit only placeholders/templates such as `.env.example` and `deploy/k8s/secrets.example.yaml`.
+- Configure real values through CI/CD and deployment platform secret stores.
+- Rotate any credential immediately if it was ever pushed to the repo history.
 
 ## Security Notes
 

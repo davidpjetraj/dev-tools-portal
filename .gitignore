@@ -39,6 +39,7 @@ lerna-debug.log*
 
 .env
 .env.*
+!.env.example
 failed-scrape-urls.txt
 not-found-contact-creators.json
 not-found-contacts.json
