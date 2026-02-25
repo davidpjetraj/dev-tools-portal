@@ -38,15 +38,7 @@ lerna-debug.log*
 
 .cursorrules
 
-# Prisma generated files
-/prisma/generated
-/libs/shared/generated
-
 .env
-/generated/prisma
-
-apps/crm/scripts/data
-
 failed-scrape-urls.txt
 not-found-contact-creators.json
 not-found-contacts.json
