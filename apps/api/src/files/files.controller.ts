@@ -9,6 +9,7 @@ import { FilesService } from './files.service';
 import { AuthRest } from '../decorators/auth.decorator';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiConsumes } from '@nestjs/swagger';
+import type { Express } from 'express';
 
 @ApiTags('Files')
 @Controller('files')

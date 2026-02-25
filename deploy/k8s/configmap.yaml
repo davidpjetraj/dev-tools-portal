@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dev-tools-config
+  namespace: dev-tools-portal
+data:
+  NODE_ENV: production
+  PORT: "8080"
+  CORS_ORIGIN: "http://localhost:3000"
+  VITE_API_URL: "http://api.dev-tools-portal.svc.cluster.local:8080/graphql"
