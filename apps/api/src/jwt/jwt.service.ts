@@ -12,7 +12,7 @@ export class JwtService {
     sign(payload: Record<string, unknown>, expiresIn: string | number): string {
         return this.jwtService.sign(payload, {
             secret: config.jwt_secret,
-            expiresIn: expiresIn as any,
+            expiresIn,
         });
     }
 
