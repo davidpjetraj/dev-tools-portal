@@ -1,0 +1,56 @@
+# compiled output
+/dist
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.cursorrules
+
+# Prisma generated files
+/prisma/generated
+/libs/shared/generated
+
+.env
+/generated/prisma
+
+apps/crm/scripts/data
+
+failed-scrape-urls.txt
+not-found-contact-creators.json
+not-found-contacts.json
+not-found-opportunities.json
+not-found-opportunities.json
+not-found-opportunity-creators.json
+not-found-property-comments.json
+not-found-properties.json
+not-found-property-creators.json

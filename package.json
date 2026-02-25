@@ -1,0 +1,25 @@
+{
+  "name": "dev-tools-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Internal Developer Tools Landing Page Portal",
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:api": "yarn workspace @dev-tools-portal/api dev",
+    "dev:web": "yarn workspace @dev-tools-portal/web dev",
+    "build:api": "yarn workspace @dev-tools-portal/api build",
+    "build:web": "yarn workspace @dev-tools-portal/web build",
+    "build": "yarn build:api && yarn build:web",
+    "lint:api": "yarn workspace @dev-tools-portal/api lint",
+    "lint:web": "yarn workspace @dev-tools-portal/web lint",
+    "lint": "yarn lint:api && yarn lint:web"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "yarn": ">=1.22.0"
+  },
+  "packageManager": "yarn@1.22.22"
+}

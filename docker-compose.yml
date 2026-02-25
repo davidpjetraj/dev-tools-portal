@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  # ── MongoDB ──────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    container_name: dev-tools-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: dev-tools-portal
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: [ 'CMD', 'mongosh', '--eval', "db.adminCommand('ping')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── API ───────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    container_name: dev-tools-api
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      MONGODB_URI: mongodb://mongo:27017/dev-tools-portal
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme123}
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - '8080:8080'
+    healthcheck:
+      test: [ 'CMD', 'wget', '-qO-', 'http://localhost:8080/health' ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── Web (nginx) ───────────────────────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    container_name: dev-tools-web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - '3000:80'
+
+volumes:
+  mongo_data:
+    driver: local
