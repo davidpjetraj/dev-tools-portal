@@ -1,5 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { StorageService } from '../storage';
+import type { Express } from 'express';
+
+interface PrivateFileData {
+    url: string;
+    file_name: string;
+    mimetype: string;
+    file_size: number;
+}
 
 @Injectable()
 export class FilesService {
@@ -21,7 +29,7 @@ export class FilesService {
             throw new BadRequestException('File is required');
         }
 
-        // Default to image/jpeg for general uploads if requested, 
+        // Default to image/jpeg for general uploads if requested,
         // but better to preserve mimeType from file.
         return await this.storageService.save({
             buffer: file.buffer,
@@ -29,10 +37,10 @@ export class FilesService {
         });
     }
 
-    async uploadPrivateFiles(files: Express.Multer.File[]): Promise<any[]> {
+    async uploadPrivateFiles(files: Express.Multer.File[]): Promise<PrivateFileData[]> {
         // Porting basic logic from vp-garage-server without Prisma integration for now
         // In dev-tools-portal, we might use Mongoose if we want to track files in DB.
-        const fileDataArray = [];
+        const fileDataArray: PrivateFileData[] = [];
 
         for (const file of files) {
             const url = await this.storageService.save({

@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { S3, PutObjectCommand } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
 import { config } from '../config';
+import type { Express } from 'express';
 
 interface ImageMetadata {
     width: number;
@@ -43,7 +44,7 @@ export class StorageService {
     }: {
         buffer: Buffer;
         mimeType: string;
-        metadata?: { [key: string]: any };
+        metadata?: Record<string, string>;
         saveUri?: string;
     }) {
         const extension = mimeType.split('/')[1] || 'bin';
