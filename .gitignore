@@ -1,8 +1,7 @@
 # compiled output
 dist/
 node_modules/
-.env*
-!.env.example
+
 
 # Logs
 logs
@@ -39,6 +38,7 @@ lerna-debug.log*
 .cursorrules
 
 .env
+.env.*
 failed-scrape-urls.txt
 not-found-contact-creators.json
 not-found-contacts.json
