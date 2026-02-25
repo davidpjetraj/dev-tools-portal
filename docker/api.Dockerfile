@@ -37,4 +37,4 @@ EXPOSE 8080
 # Run as non-root user for security
 USER node
 
-CMD ["node", "apps/api/dist/index.js"]
+CMD ["node", "apps/api/dist/main.js"]

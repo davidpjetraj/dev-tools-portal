@@ -65,6 +65,37 @@ docker compose up --build
 #    GraphQL API:   http://localhost:8080/graphql
 ```
 
+## Build OCI Images (API + Web)
+
+Both applications already include multi-stage Dockerfiles, so you can package them as OCI-compatible images:
+
+```bash
+# API image
+docker build -f docker/api.Dockerfile -t dev-tools-portal-api:latest .
+
+# Web image
+docker build -f docker/web.Dockerfile -t dev-tools-portal-web:latest .
+```
+
+Run them directly with Docker:
+
+```bash
+# Start MongoDB (required by API)
+docker run -d --name dev-tools-mongo -p 27017:27017 mongo:7
+
+# Run API
+docker run --rm -p 8080:8080 \
+  -e MONGODB_URI="mongodb://host.docker.internal:27017/dev-tools-portal" \
+  -e JWT_SECRET="change-me" \
+  -e ADMIN_USERNAME="admin" \
+  -e ADMIN_PASSWORD="changeme123" \
+  -e CORS_ORIGIN="http://localhost:3000" \
+  dev-tools-portal-api:latest
+
+# Run Web
+docker run --rm -p 3000:80 dev-tools-portal-web:latest
+```
+
 ### Default Admin Credentials
 Set in `.env` (see `.env.example`). Defaults for local dev:
 - **Username**: `admin`
@@ -162,7 +193,29 @@ Images are tagged with both `latest` and the commit SHA for traceability.
 
 ## Kubernetes Deployment
 
-Docker images published to GHCR can be deployed to Kubernetes. Basic example:
+Docker images published to GHCR can be deployed to Kubernetes.
+
+Ready-to-apply manifests are included in [`deploy/k8s`](deploy/k8s):
+
+```bash
+kubectl apply -f deploy/k8s/namespace.yaml
+kubectl apply -f deploy/k8s/configmap.yaml
+kubectl apply -f deploy/k8s/secrets.example.yaml
+kubectl apply -f deploy/k8s/mongo.yaml
+kubectl apply -f deploy/k8s/api.yaml
+kubectl apply -f deploy/k8s/web.yaml
+kubectl apply -f deploy/k8s/ingress.yaml
+```
+
+Then verify:
+
+```bash
+kubectl get pods,svc,ingress -n dev-tools-portal
+```
+
+> Update image references in `deploy/k8s/api.yaml` and `deploy/k8s/web.yaml` to match your registry/repository.
+
+Minimal API deployment example:
 
 ```yaml
 apiVersion: apps/v1
