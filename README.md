@@ -88,7 +88,7 @@ docker run --rm -p 8080:8080 \
   -e MONGODB_URI="mongodb://host.docker.internal:27017/dev-tools-portal" \
   -e JWT_SECRET="change-me" \
   -e ADMIN_USERNAME="admin" \
-  -e ADMIN_PASSWORD="changeme123" \
+  -e ADMIN_PASSWORD="admin123" \
   -e CORS_ORIGIN="http://localhost:3000" \
   dev-tools-portal-api:latest
 
@@ -99,7 +99,7 @@ docker run --rm -p 3000:80 dev-tools-portal-web:latest
 ### Default Admin Credentials
 Set in `.env` (see `.env.example`). Defaults for local dev:
 - **Username**: `admin`
-- **Password**: `changeme123`
+- **Password**: `admin123`
 
 > ⚠️ Change these in production!
 
@@ -157,7 +157,7 @@ query {
 
 ```graphql
 mutation {
-  login(username: "admin", password: "changeme123") {
+  login(username: "admin", password: "admin123") {
     token
   }
 }
@@ -174,7 +174,7 @@ Copy `.env.example` to `.env` and fill in values.
 | `MONGODB_URI` | MongoDB connection string | `mongodb://mongo:27017/dev-tools-portal` |
 | `JWT_SECRET` | Secret for signing JWTs | **(change this!)** |
 | `ADMIN_USERNAME` | Admin login username | `admin` |
-| `ADMIN_PASSWORD` | Admin login password | `changeme123` |
+| `ADMIN_PASSWORD` | Admin login password | `admin123` |
 | `PORT` | API port | `8080` |
 | `CORS_ORIGIN` | Allowed CORS origins | `http://localhost:3000` |
 

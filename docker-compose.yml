@@ -32,9 +32,9 @@ services:
       NODE_ENV: production
       PORT: 8080
       MONGODB_URI: mongodb://mongo:27017/dev-tools-portal
-      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      JWT_SECRET: ${JWT_SECRET:-a5d4eb3bf00a074d834bf57672a87320094a2e39f14810759a1c5282bea29e49}
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme123}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
       CORS_ORIGIN: http://localhost:3000
     ports:
       - '8080:8080'
