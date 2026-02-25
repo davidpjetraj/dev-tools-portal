@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client/core'
 
 export const LOGIN = gql`
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-      username
+  mutation SignIn($input: SignInInput!) {
+    signIn(input: $input) {
+      access_token
+      refresh_token
     }
   }
 `
 
 export const CREATE_LINK = gql`
-  mutation CreateLink($input: LinkInput!) {
+  mutation CreateLink($input: CreateLinkInput!) {
     createLink(input: $input) {
       id
       title
@@ -24,7 +24,7 @@ export const CREATE_LINK = gql`
 `
 
 export const UPDATE_LINK = gql`
-  mutation UpdateLink($id: ID!, $input: LinkInput!) {
+  mutation UpdateLink($id: ID!, $input: UpdateLinkInput!) {
     updateLink(id: $id, input: $input) {
       id
       title

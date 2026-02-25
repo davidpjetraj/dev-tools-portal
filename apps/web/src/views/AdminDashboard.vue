@@ -42,8 +42,11 @@
           <tbody>
             <tr v-for="link in links" :key="link.id" class="link-table__row">
               <td class="link-table__icon-cell">
-                <span v-if="link.icon" class="link-icon">{{ link.icon }}</span>
-                <span v-else class="link-icon link-icon--empty">—</span>
+                <div class="link-table__icon-box">
+                  <img v-if="isUrl(link.icon)" :src="link.icon!" :alt="link.title" class="link-table__img" />
+                  <span v-else-if="link.icon" class="link-table__emoji">{{ link.icon }}</span>
+                  <span v-else class="link-table__empty">—</span>
+                </div>
               </td>
               <td class="link-table__title">{{ link.title }}</td>
               <td class="link-table__url">
@@ -83,7 +86,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label" for="f-icon">Icon</label>
-                <input id="f-icon" v-model="form.icon" class="form-input" placeholder="🐙 or https://…/icon.png" />
+                <ImageUpload v-model="form.icon" />
               </div>
               <div class="form-group">
                 <label class="form-label" for="f-category">Category</label>
@@ -145,11 +148,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useQuery, useMutation } from '@vue/apollo-composable'
 import AppHeader from '@/components/AppHeader.vue'
+import ImageUpload from '@/components/ImageUpload.vue'
 import { GET_LINKS } from '@/graphql/queries'
 import { CREATE_LINK, UPDATE_LINK, DELETE_LINK } from '@/graphql/mutations'
+import { isUrl } from '@/utils/icon'
 
 interface Link {
   id: string
@@ -168,7 +173,6 @@ const { result, loading, error, refetch } = useQuery<{ links: Link[] }>(GET_LINK
 const links = ref<Link[]>([])
 
 // Sync query result into local ref
-import { watch } from 'vue'
 watch(() => result.value?.links, (val) => {
   if (val) links.value = val
 }, { immediate: true })
@@ -366,12 +370,29 @@ async function handleDelete() {
 }
 
 .link-table__icon-cell {
-  width: 60px;
+  width: 80px;
 }
-.link-icon {
-  font-size: 1.4rem;
+.link-table__icon-box {
+  width: 40px;
+  height: 40px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
-.link-icon--empty {
+.link-table__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+.link-table__emoji {
+  font-size: 1.5rem;
+}
+.link-table__empty {
   color: var(--color-text-dim);
 }
 

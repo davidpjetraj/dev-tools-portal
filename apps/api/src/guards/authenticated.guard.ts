@@ -19,3 +19,17 @@ export class AuthenticatedGuard extends AuthGuard('jwt') {
     return request;
   }
 }
+
+@Injectable()
+export class AuthenticatedGuardRest extends AuthGuard('jwt') {
+  getRequest(context: ExecutionContext) {
+    const request = context.switchToHttp().getRequest();
+
+    if (!request?.headers?.authorization) {
+      throw new UnauthorizedException('Authorization token not provided');
+    }
+
+    return request;
+  }
+}
+

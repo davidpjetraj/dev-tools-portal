@@ -2,7 +2,7 @@
   <div class="link-card" @click="openLink">
     <div class="link-card__icon">
       <!-- Render as image if icon looks like a URL, otherwise as emoji/text -->
-      <img v-if="isIconUrl" :src="link.icon!" :alt="link.title" class="link-card__img" />
+      <img v-if="isUrl(link.icon)" :src="link.icon!" :alt="link.title" class="link-card__img" />
       <span v-else-if="link.icon" class="link-card__emoji">{{ link.icon }}</span>
       <span v-else class="link-card__default-icon">🔗</span>
     </div>
@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { isUrl } from '@/utils/icon'
 
 interface Link {
   id: string
@@ -32,9 +33,6 @@ interface Link {
 
 const props = defineProps<{ link: Link }>()
 
-const isIconUrl = computed(() =>
-  !!props.link.icon && /^https?:\/\//.test(props.link.icon),
-)
 
 const displayUrl = computed(() => {
   try {
@@ -99,10 +97,10 @@ function openLink() {
 }
 
 .link-card__img {
-  width: 28px;
-  height: 28px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  border-radius: 4px;
+  padding: var(--space-2);
 }
 
 .link-card__emoji {
@@ -139,6 +137,7 @@ function openLink() {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   overflow: hidden;
 }
 

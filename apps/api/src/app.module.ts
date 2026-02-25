@@ -10,7 +10,10 @@ import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { LinkModule } from './link/link.module';
 import { HealthModule } from './health/health.module';
+import { StorageModule } from './storage/storage.module';
+import { FilesModule } from './files/files.module';
 import { HttpLoggingMiddleware } from './middleware/http-logging.middleware';
+
 
 @Module({
   imports: [
@@ -30,7 +33,10 @@ import { HttpLoggingMiddleware } from './middleware/http-logging.middleware';
     AuthModule,
     LinkModule,
     HealthModule,
+    StorageModule,
+    FilesModule,
   ],
+
   providers: [
     {
       provide: APP_GUARD,

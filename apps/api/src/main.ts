@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import expressBasicAuth from 'express-basic-auth';
+import * as requestIp from 'request-ip';
 import { AllExceptionFilter } from './exception/all-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { config } from './config';
@@ -27,6 +28,7 @@ async function bootstrap() {
   app.use(helmet());
 
   app.useGlobalFilters(new AllExceptionFilter());
+  app.use(requestIp.mw());
 
   app.setGlobalPrefix('v1');
 
@@ -41,24 +43,35 @@ async function bootstrap() {
   );
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Dev Tools Portal API')
-    .setDescription('Dev Tools Portal API Documentation')
+    .setTitle(config.app_name)
+    .setDescription(`${config.app_name} Documentation`)
     .addBearerAuth()
     .build();
 
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('v1/api', app, document, {
+  const documentFactory = () => SwaggerModule.createDocument(app, swaggerConfig);
+
+  // Set up Swagger with custom options to hide schemas
+  SwaggerModule.setup('v1/api', app, documentFactory, {
     swaggerOptions: {
-      defaultModelsExpandDepth: -1,
+      defaultModelsExpandDepth: -1, // Hide the models section by default
       filter: true,
       displayRequestDuration: true,
     },
   });
 
-  await app.listen(config.port, () => {
-    console.log(`🚀 API ready at http://localhost:${config.port}/v1/graphql`);
-    console.log(`❤️  Health check at http://localhost:${config.port}/v1/health`);
-    console.log(`📚 Swagger at http://localhost:${config.port}/v1/api`);
+  await app.listen(config.port, async () => {
+    const appUrl = await app.getUrl();
+    console.log(
+      `🚀 Application ${config.app_name} started on ${appUrl} port ${config.port}`,
+      {
+        app_name: config.app_name,
+        url: appUrl,
+        port: config.port,
+        environment: config.environment || 'development',
+      },
+    );
+    console.log(`❤️  Health check at ${appUrl}/v1/health`);
+    console.log(`📚 Swagger at ${appUrl}/v1/api`);
   });
 }
 

@@ -14,11 +14,17 @@ export default defineConfig({
     server: {
         port: 3000,
         proxy: {
+            // Forward /v1 requests (REST) to the API
+            '/v1': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+            },
             // Forward /graphql requests to the API during development
             '/graphql': {
                 target: 'http://localhost:8080',
                 changeOrigin: true,
             },
+
         },
     },
 })

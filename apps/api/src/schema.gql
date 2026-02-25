@@ -1,0 +1,66 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Sign in model"""
+type AuthModel {
+  access_token: String!
+  refresh_token: String!
+}
+
+type LinkModel {
+  id: ID!
+  title: String!
+  url: String!
+  icon: String
+  description: String
+  category: String!
+  order: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Query {
+  links(category: String): [LinkModel!]!
+  link(id: ID!): LinkModel
+  categories: [String!]!
+}
+
+type Mutation {
+  signIn(input: SignInInput!): AuthModel!
+  logout: Boolean!
+  refreshToken(input: RefreshTokenInput!): AuthModel!
+  createLink(input: CreateLinkInput!): LinkModel!
+  updateLink(id: ID!, input: UpdateLinkInput!): LinkModel!
+  deleteLink(id: ID!): Boolean!
+}
+
+"""Sign in input"""
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+"""Refresh token input"""
+input RefreshTokenInput {
+  """Refresh token"""
+  refresh_token: String!
+}
+
+input CreateLinkInput {
+  title: String!
+  url: String!
+  icon: String
+  description: String
+  category: String
+  order: Int
+}
+
+input UpdateLinkInput {
+  title: String!
+  url: String!
+  icon: String
+  description: String
+  category: String
+  order: Int
+}

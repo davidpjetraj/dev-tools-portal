@@ -16,18 +16,19 @@ export const useAuthStore = defineStore('auth', () => {
      * Call the login mutation, store the returned JWT in memory and localStorage.
      * Throws on invalid credentials so the login form can display the error.
      */
-    async function login(inputUsername: string, password: string): Promise<void> {
+    async function login(email: string, password: string): Promise<void> {
         const { data } = await apolloClient.mutate({
             mutation: LOGIN,
-            variables: { username: inputUsername, password },
+            variables: { input: { email, password } },
         })
 
-        const { token: newToken, username: newUsername } = data.login
+        const { access_token, refresh_token } = data.signIn
 
-        token.value = newToken
-        username.value = newUsername
-        localStorage.setItem(TOKEN_KEY, newToken)
-        localStorage.setItem(USERNAME_KEY, newUsername)
+        token.value = access_token
+        // Note: The API doesn't return username on login, so we might want to fetch it later if needed
+        username.value = email
+        localStorage.setItem(TOKEN_KEY, access_token)
+        localStorage.setItem(USERNAME_KEY, email)
     }
 
     function logout(): void {

@@ -13,14 +13,14 @@
 
         <form class="login-form" @submit.prevent="handleSubmit">
           <div class="form-group">
-            <label class="form-label" for="username">Username</label>
+            <label class="form-label" for="email">Email</label>
             <input
-              id="username"
-              v-model="form.username"
+              id="email"
+              v-model="form.email"
               class="form-input"
-              type="text"
-              placeholder="admin"
-              autocomplete="username"
+              type="email"
+              placeholder="admin@example.com"
+              autocomplete="email"
               required
             />
           </div>
@@ -67,7 +67,7 @@ const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-const form = reactive({ username: '', password: '' })
+const form = reactive({ email: '', password: '' })
 const loading = ref(false)
 const errorMsg = ref('')
 
@@ -76,7 +76,7 @@ async function handleSubmit() {
   loading.value = true
 
   try {
-    await auth.login(form.username, form.password)
+    await auth.login(form.email, form.password)
     // Redirect to the originally requested page or the dashboard
     const redirect = (route.query.redirect as string) || '/admin'
     router.push(redirect)
