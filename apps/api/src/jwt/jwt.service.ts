@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService as NestJwtService } from '@nestjs/jwt';
 import { config } from '../config';
+import type { SignOptions } from 'jsonwebtoken';
 
 @Injectable()
 export class JwtService {
@@ -12,7 +13,7 @@ export class JwtService {
     sign(payload: Record<string, unknown>, expiresIn: string | number): string {
         return this.jwtService.sign(payload, {
             secret: config.jwt_secret,
-            expiresIn,
+            expiresIn: expiresIn as SignOptions['expiresIn'],
         });
     }
 

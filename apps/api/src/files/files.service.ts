@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { StorageService } from '../storage';
 import type { Express } from 'express';
 
-interface PrivateFileData {
+export interface PrivateFileData {
     url: string;
     file_name: string;
     mimetype: string;
