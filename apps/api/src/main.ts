@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import expressBasicAuth from 'express-basic-auth';
 import * as requestIp from 'request-ip';
+import type { Request, Response } from 'express';
 import { AllExceptionFilter } from './exception/all-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { config } from './config';
@@ -12,6 +13,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
+  const expressApp = app.getHttpAdapter().getInstance();
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -29,6 +31,18 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionFilter());
   app.use(requestIp.mw());
+
+  expressApp.get('/', (_req: Request, res: Response) => {
+    res.status(200).json({
+      status: 'ok',
+      service: config.app_name,
+      endpoints: {
+        health: '/v1/health',
+        graphql: '/graphql',
+        docs: '/v1/api',
+      },
+    });
+  });
 
   app.setGlobalPrefix('v1');
 
