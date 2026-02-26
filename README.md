@@ -43,6 +43,8 @@ Open:
 - GraphQL: `http://localhost:3000/graphql` (proxied by Vite)
 - Health: `http://localhost:8080/v1/health`
 
+Admin credentials: email:"admin@gmail.com", password:'admin123'
+
 ## Key URLs
 
 Local:
