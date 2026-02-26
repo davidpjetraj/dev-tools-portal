@@ -7,6 +7,12 @@ This folder contains production-oriented Kubernetes manifests for:
 
 `mongo.yaml` remains available for local-only experiments, but production should use a managed MongoDB service.
 
+Container images are sourced from GitHub Container Registry (GHCR):
+- `ghcr.io/davidpjetraj/dev-tools-portal/api`
+- `ghcr.io/davidpjetraj/dev-tools-portal/web`
+
+For this setup, keep GHCR packages public. If you make them private, add an `imagePullSecret` to the namespace and both deployments.
+
 ## Files
 - `namespace.yaml` - namespace used by all resources
 - `configmap.yaml` - non-sensitive runtime configuration

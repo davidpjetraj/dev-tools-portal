@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: davidpjetraj/dev-tools-portal-api:latest
+          image: ghcr.io/davidpjetraj/dev-tools-portal/api:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

@@ -18,8 +18,8 @@ jobs:
 
     env:
       NAMESPACE: dev-tools-portal
-      IMAGE_API: davidpjetraj/dev-tools-portal-api
-      IMAGE_WEB: davidpjetraj/dev-tools-portal-web
+      IMAGE_API: ghcr.io/davidpjetraj/dev-tools-portal/api
+      IMAGE_WEB: ghcr.io/davidpjetraj/dev-tools-portal/web
       IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}

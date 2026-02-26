@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: davidpjetraj/dev-tools-portal-web:latest
+          image: ghcr.io/davidpjetraj/dev-tools-portal/web:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
