@@ -35,7 +35,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-a5d4eb3bf00a074d834bf57672a87320094a2e39f14810759a1c5282bea29e49}
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
-      CORS_ORIGIN: http://localhost:3000
+      CORS_ORIGIN: https://david-pjetraj.shop
     ports:
       - '8080:8080'
     healthcheck:
