@@ -67,10 +67,10 @@ jobs:
 
       - name: Smoke test
         run: |
-          curl.exe -fsSI --retry 20 --retry-delay 5 https://david-pjetraj.shop
-          curl.exe -fsS --retry 20 --retry-delay 5 https://david-pjetraj.shop/v1/health
+          curl.exe -fsSI --retry 20 --retry-delay 5 https://www.david-pjetraj.shop/
+          curl.exe -fsS --retry 20 --retry-delay 5 https://www.david-pjetraj.shop//v1/health
           $payload = '{"query":"query { __typename }"}'
-          curl.exe -fsS --retry 20 --retry-delay 5 -H "Content-Type: application/json" -d $payload https://david-pjetraj.shop/graphql
+          curl.exe -fsS --retry 20 --retry-delay 5 -H "Content-Type: application/json" -d $payload https://www.david-pjetraj.shop//graphql
 
       - name: Roll back if deployment failed
         if: failure()

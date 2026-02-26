@@ -76,11 +76,11 @@ kubectl get certificate -n dev-tools-portal
 ## Smoke Tests
 
 ```bash
-curl -I https://david-pjetraj.shop
-curl https://david-pjetraj.shop/v1/health
+curl -I https://www.david-pjetraj.shop/
+curl https://www.david-pjetraj.shop//v1/health
 curl -H "Content-Type: application/json" \
   -d '{"query":"query { __typename }"}' \
-  https://david-pjetraj.shop/graphql
+  https://www.david-pjetraj.shop//graphql
 ```
 
 ## Common Issues

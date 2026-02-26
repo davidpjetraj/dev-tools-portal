@@ -52,9 +52,9 @@ Local:
 - `http://localhost:8080/v1/health`
 
 Production-style target:
-- `https://david-pjetraj.shop/`
-- `https://david-pjetraj.shop/graphql`
-- `https://david-pjetraj.shop/v1/health`
+- `https://www.david-pjetraj.shop//`
+- `https://www.david-pjetraj.shop//graphql`
+- `https://www.david-pjetraj.shop//v1/health`
 
 ## Environment Variables
 

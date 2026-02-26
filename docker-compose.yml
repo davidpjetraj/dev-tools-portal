@@ -31,11 +31,11 @@ services:
     environment:
       NODE_ENV: production
       PORT: 8080
-      MONGODB_URI: mongodb://mongo:27017/dev-tools-portal
+      MONGODB_URI: mongodb+srv://david:David123.@cluster0.tbrvbiu.mongodb.net/?appName=Cluster0
       JWT_SECRET: ${JWT_SECRET:-a5d4eb3bf00a074d834bf57672a87320094a2e39f14810759a1c5282bea29e49}
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
-      CORS_ORIGIN: https://david-pjetraj.shop
+      CORS_ORIGIN: https://www.david-pjetraj.shop/
     ports:
       - '8080:8080'
     healthcheck:

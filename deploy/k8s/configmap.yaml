@@ -6,4 +6,4 @@ metadata:
 data:
   NODE_ENV: production
   PORT: "8080"
-  CORS_ORIGIN: "https://david-pjetraj.shop"
+  CORS_ORIGIN: "https://www.david-pjetraj.shop/"
