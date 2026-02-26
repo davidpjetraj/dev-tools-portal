@@ -1,26 +1,45 @@
-Web — Developer Tools Portal
-=================================
+# Web
 
-Vue 3 frontend served as a static SPA via nginx in production.
+Frontend for Dev Tools Portal.
+Stack: Vue 3, Vite, Apollo Client, Pinia, Vue Router.
 
-## Features
+## Run Locally
 
-- **Landing page** — responsive card grid, grouped by category, with filter pills
-- **Admin login** — JWT-based authentication
-- **Admin dashboard** — full CRUD for links (create, edit, delete)
-
-## Development
+From repository root:
 
 ```bash
-# From repo root
 yarn dev:web
-# Opens at http://localhost:3000
-# /graphql requests are proxied to the API at http://localhost:8080
 ```
+
+Default web URL: `http://localhost:3000`
 
 ## Build
 
+From repository root:
+
 ```bash
 yarn build:web
-# Output in apps/web/dist/
 ```
+
+Build output: `apps/web/dist`
+
+## API Connection
+
+- In production-style routing, the app calls relative path `/graphql`.
+- In local development, Vite proxy forwards `/graphql` to `http://localhost:8080`.
+
+## Routes
+
+- `/` - landing page
+- `/admin/login` - admin login
+- `/admin` - admin dashboard (auth required)
+
+## Troubleshooting
+
+- API calls fail in local dev:
+  - Make sure API is running on `http://localhost:8080`.
+- 405 on `/graphql`:
+  - Request is hitting static nginx instead of API route.
+  - Check proxy or ingress routing.
+- Admin route redirects to login:
+  - Token is missing or expired.

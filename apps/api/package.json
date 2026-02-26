@@ -5,13 +5,15 @@
   "description": "GraphQL API for Dev Tools Portal",
   "main": "dist/main.js",
   "scripts": {
-    "build": "nest build",
-    "clean": "rimraf dist",
+    "build": "rimraf dist tsconfig.tsbuildinfo && nest build",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/main.js",
+    "render:build": "yarn install --frozen-lockfile && yarn build",
+    "render:start": "node dist/main.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },

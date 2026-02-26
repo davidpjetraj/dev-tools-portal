@@ -1,37 +1,57 @@
-API — Developer Tools Portal
-=================================
+# API
 
-GraphQL API serving the Dev Tools Portal. Built with **Node.js**, **TypeScript**, **Apollo Server 4**, **Express**, and **MongoDB** (Mongoose).
+GraphQL API for Dev Tools Portal.
+Stack: NestJS, Apollo GraphQL, Express, MongoDB.
+
+## Run Locally
+
+From repository root:
+
+```bash
+yarn dev:api
+```
+
+Default API port: `8080`.
+
+## Required Environment Variables
+
+Set these in root `.env`:
+
+- `NODE_ENV`
+- `PORT`
+- `MONGODB_URI`
+- `JWT_SECRET`
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
+- `CORS_ORIGIN`
 
 ## Endpoints
 
-| Endpoint | Description |
-|----------|-------------|
-| `POST /graphql` | Main GraphQL endpoint |
-| `GET /health` | Health-check (returns `{ status: "ok" }`) |
+- `POST /graphql` - GraphQL endpoint
+- `GET /v1/health` - health check
+- `GET /v1/api` - Swagger UI (basic auth)
 
-## Environment Variables
+## Auth Model
 
-See [`.env.example`](../../.env.example) at the repository root.
+- `signIn` mutation returns access token and refresh token.
+- Send access token as:
 
-## Development
-
-```bash
-# from repo root
-npm run dev:api
+```text
+Authorization: Bearer <token>
 ```
 
-## Available GraphQL Operations
+- Mutations that manage links require a valid token.
 
-### Queries
-- `links(category: String)` — get all links (optional filter)
-- `link(id: ID!)` — get single link
-- `categories` — list all distinct categories
+## Core Operations
 
-### Mutations (public)
-- `login(username, password)` — returns JWT token
+Queries:
+- `links`
+- `link`
+- `categories`
 
-### Mutations (auth required — pass `Authorization: Bearer <token>`)
-- `createLink(input)` — create link
-- `updateLink(id, input)` — update link
-- `deleteLink(id)` — delete link
+Mutations:
+- `signIn` (login)
+- `refreshToken`
+- `createLink`
+- `updateLink`
+- `deleteLink`

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: dev-tools-portal-api
+    env: node
+    rootDir: .
+    buildCommand: yarn render:build:api
+    startCommand: yarn render:start:api
+    healthCheckPath: /v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
