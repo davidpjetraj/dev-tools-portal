@@ -39,7 +39,7 @@ services:
     ports:
       - '8080:8080'
     healthcheck:
-      test: [ 'CMD', 'wget', '-qO-', 'http://localhost:8080/health' ]
+      test: [ 'CMD', 'wget', '-qO-', 'https://dev-tools-portal.onrender.com/health' ]
       interval: 15s
       timeout: 5s
       retries: 3

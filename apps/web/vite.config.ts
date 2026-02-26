@@ -16,12 +16,12 @@ export default defineConfig({
         proxy: {
             // Forward /v1 requests (REST) to the API
             '/v1': {
-                target: 'http://localhost:8080',
+                target: 'https://dev-tools-portal.onrender.com',
                 changeOrigin: true,
             },
             // Forward /graphql requests to the API during development
             '/graphql': {
-                target: 'http://localhost:8080',
+                target: 'https://dev-tools-portal.onrender.com',
                 changeOrigin: true,
             },
 

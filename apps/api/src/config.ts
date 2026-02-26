@@ -12,8 +12,8 @@ const nodeEnv = process.env.NODE_ENV ?? 'development';
 dotenv.config({ path: path.join(rootDir, `.env.${nodeEnv}`) });
 
 const appEnvSchema = z.object({
-    PORT: z.string().default('4000'),
-    CORS_ORIGIN: z.string().default('http://localhost:3000'),
+    PORT: z.string().default('8080'),
+    CORS_ORIGIN: z.string().default('https://www.david-pjetraj.shop'),
     MONGODB_URI: z.string().min(1),
     JWT_SECRET: z.string().min(1),
     ADMIN_USERNAME: z.string().default(''),
