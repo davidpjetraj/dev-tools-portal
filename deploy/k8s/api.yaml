@@ -4,7 +4,7 @@ metadata:
   name: api
   namespace: dev-tools-portal
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: api
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/your-org/dev-tools-portal/api:latest
+          image: davidpjetraj/dev-tools-portal-api:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -55,15 +55,22 @@ spec:
                 secretKeyRef:
                   name: dev-tools-secrets
                   key: ADMIN_PASSWORD
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
           readinessProbe:
             httpGet:
-              path: /health
+              path: /v1/health
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /health
+              path: /v1/health
               port: 8080
             initialDelaySeconds: 20
             periodSeconds: 15

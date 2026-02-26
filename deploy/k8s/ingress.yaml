@@ -4,11 +4,15 @@ metadata:
   name: dev-tools-portal
   namespace: dev-tools-portal
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - david-pjetraj.shop
+      secretName: dev-tools-portal-tls
   rules:
-    - host: portal.local
+    - host: david-pjetraj.shop
       http:
         paths:
           - path: /
@@ -25,7 +29,7 @@ spec:
                 name: api
                 port:
                   number: 8080
-          - path: /health
+          - path: /v1/health
             pathType: Prefix
             backend:
               service:

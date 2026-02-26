@@ -4,7 +4,7 @@ metadata:
   name: web
   namespace: dev-tools-portal
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: web
@@ -15,10 +15,17 @@ spec:
     spec:
       containers:
         - name: web
-          image: ghcr.io/your-org/dev-tools-portal/web:latest
+          image: davidpjetraj/dev-tools-portal-web:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
