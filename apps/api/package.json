@@ -12,7 +12,7 @@
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main.js",
-    "render:build": "yarn install --frozen-lockfile && yarn build",
+    "render:build": "yarn install --frozen-lockfile --production=false && yarn build",
     "render:start": "node dist/main.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"

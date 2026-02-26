@@ -13,7 +13,7 @@
     "build:api": "yarn workspace @dev-tools-portal/api build",
     "build:web": "yarn workspace @dev-tools-portal/web build",
     "build": "yarn build:api && yarn build:web",
-    "render:build:api": "yarn install --frozen-lockfile && yarn workspace @dev-tools-portal/api build",
+    "render:build:api": "yarn install --frozen-lockfile --production=false && yarn workspace @dev-tools-portal/api build",
     "render:start:api": "node apps/api/dist/main.js",
     "lint:api": "yarn workspace @dev-tools-portal/api lint",
     "lint:web": "yarn workspace @dev-tools-portal/web lint",
