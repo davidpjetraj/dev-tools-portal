@@ -53,10 +53,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Validate Docker Hub credentials
+        shell: bash
+        run: |
+          USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
+          if [ -z "$USERNAME" ]; then
+            USERNAME="${{ vars.DOCKERHUB_USERNAME }}"
+          fi
+
+          if [ -z "$USERNAME" ] || [ -z "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
+            echo "::error::Missing Docker Hub credentials. Set DOCKERHUB_TOKEN as a repository secret and DOCKERHUB_USERNAME as a repository secret or variable."
+            exit 1
+          fi
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_USERNAME || vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up Docker Buildx
