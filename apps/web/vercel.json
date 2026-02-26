@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/graphql",
+      "destination": "https://dev-tools-portal.onrender.com/graphql"
+    },
+    {
+      "source": "/v1/:path*",
+      "destination": "https://dev-tools-portal.onrender.com/v1/:path*"
+    }
+  ]
+}
