@@ -32,6 +32,9 @@ RUN yarn install --frozen-lockfile --production
 # Copy compiled output from builder stage
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 
+# Create src directory and ensure node user has write permissions
+RUN mkdir -p /app/src && chown -R node:node /app
+
 EXPOSE 8080
 
 # Run as non-root user for security
