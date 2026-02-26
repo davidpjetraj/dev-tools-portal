@@ -56,20 +56,18 @@ jobs:
       - name: Validate Docker Hub credentials
         shell: bash
         run: |
-          USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
-          if [ -z "$USERNAME" ]; then
-            USERNAME="${{ vars.DOCKERHUB_USERNAME }}"
-          fi
-
-          if [ -z "$USERNAME" ] || [ -z "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
-            echo "::error::Missing Docker Hub credentials. Set DOCKERHUB_TOKEN as a repository secret and DOCKERHUB_USERNAME as a repository secret or variable."
+          USERNAME="${{ secrets.DOCKERHUB_USERNAME || vars.DOCKERHUB_USERNAME || 'davidpjetraj' }}"
+          if [ -z "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
+            echo "::error::Missing Docker Hub token. Set DOCKERHUB_TOKEN as a repository secret."
             exit 1
           fi
+
+          echo "Using Docker Hub username: $USERNAME"
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_USERNAME || vars.DOCKERHUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME || vars.DOCKERHUB_USERNAME || 'davidpjetraj' }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up Docker Buildx
